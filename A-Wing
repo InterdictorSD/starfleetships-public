@@ -1,0 +1,276 @@
+Array::mult = (m) -> @map (v) -> v*m
+Array::add = (m) -> @map (v) -> v+m
+for key, value of []
+  delete Array::[key]
+  Object.defineProperty Array::, key,
+    value: value
+    configurable: true
+    enumerable: false
+addWingtipEndRod = (n,xpos,ypos,zpos,size,angle) ->
+  model.bodies['wingtipEndRod'+n] =
+      section_segments: [45,135,225,315]
+      offset:
+        x: xpos
+        y: zpos
+        z: -ypos-mainypos
+      position:
+        x: [0,0,0,0]
+        y: [2,2,4.5,4.5].mult(size)
+        z: [0,0,0,0]
+      width: [0,0.7,0.7,0].mult(size)
+      height: [0,14,11,0].mult(size)
+      texture: [3]
+      angle: angle
+      vertical: true
+
+
+mainypos=20
+model =
+  name: 'A-Wing Prototype'
+  level: 1
+  model: 2
+  size: 1.16
+  zoom: 1
+  next: [203,204]
+  specs:
+    shield:
+      capacity: [140,190]
+      reload: [6,8]
+    generator:
+      capacity: [30,45]
+      reload: [30,60]
+    ship:
+      mass: 60
+      speed: [155,190]
+      rotation: [80,110]
+      acceleration: [120,150]
+  bodies:
+    mainfore:
+      section_segments: [0,10,30,70,80,90,100,110,150,170,180,190,210,250,260,270,280,290,330,350]
+      offset:
+        x: 0
+        y: 0+mainypos
+        z: 0
+      position:
+        x: [0,0,0,0,0,0,0]
+        y: [-80,-80,-38,-30,-22,-10,-10]
+        z: [0,0,0,0,0,0,0]
+      width: [0,9,24,26,28,28,0]
+      height: [0,0.4,6.4,7.2,8,8,0]
+      texture: [1]
+    mainstripe:
+      section_segments: [0,16,45,55,125,135,145,180,215,225,235,305,315,344]
+      offset:
+        x: 0
+        y: -1.1+mainypos
+        z: 4
+      position:
+        x: [0,0,0,0,0,0,0]
+        y: [-87,-80,-38,-30,-22,-10,-10].mult(0.9)
+        z: [-3.8,-2.9,-2,-2,-4,-4,-4]
+      width: [7,9,24,26,27,27,0].mult(0.59)
+      height: [0.4,0.4,6.4,7.6,8,8,0].mult(0.8)
+      texture: [63]
+    endcovertop:
+      section_segments: [0,16,45,55,125,135,145,180,215,225,235,305,315,344]
+      offset:
+        x: 0
+        y: -1+mainypos
+        z: 4.95
+      position:
+        x: [0,0,0,0]
+        y: [-10,-10,16,16]
+        z: [0,0,0,0]
+      width: [0,17.5,17.5,0]
+      height: [0,3,3,0]
+      texture: [1,11,0.9]
+    endcoverbottom:
+      section_segments: [0,16,45,55,125,135,145,180,215,225,235,305,315,344].add(180)
+      offset:
+        x: 0
+        y: -1+mainypos
+        z: -5
+      position:
+        x: [0,0,0,0]
+        y: [-10,-10,16,16]
+        z: [0,0,0,0]
+      width: [0,17.5,17.5,0]
+      height: [0,3,3,0]
+      texture: [0.9,10.25,0.9]
+    endstruct:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 0
+        y: 0+mainypos
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-10,-10,11,11]
+        z: [0,0,0,0]
+      width: [0,19,19,0]
+      height: [0,5.5,5.5,0]
+      texture: [4]
+    enginemain:
+      section_segments: 24
+      offset:
+        x: 14.5
+        y: 0.2+mainypos
+        z: 0
+      position:
+        x: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        y: [-12,-12,-4,-4,-2.5,-2.5,3,3,4.5,4.5,9.5,9.5,11,11,14.5,14.5,16,16,17,17,19,19,14,14,11,11]
+        z: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      width: [0,5.5,5.5,6,6,5.5,5.5,6,6,5.5,5.5,6,6,5.5,5.5,6.5,6.5,6,6,5,5,3.5,3.5,2,2,0].mult(0.95)
+      height: [0,5.5,5.5,6,6,5.5,5.5,6,6,5.5,5.5,6,6,5.5,5.5,6.5,6.5,6,6,5,5,3.5,3.5,2,2,0].mult(0.95)
+      texture: [1,11,2,2,2,10,2,2,2,10,2,2,2,10,2,2,2,3,3,13,2,17,2,4,17]
+      propeller: true
+    engineringrear:
+      section_segments: 24
+      offset:
+        x: 14.5
+        y: 24+mainypos
+        z: 0
+      position:
+        x: [0,0,0,0,0]
+        y: [0,0,6,6,0]
+        z: [0,0,0,0,0]
+      width: [3.5,5,5,3.5,3.5]
+      height: [3.5,5,5,3.5,3.5]
+      texture: [2]
+    bigring1:
+      section_segments: 24
+      offset:
+        x: 14.5
+        y: 21.6+mainypos
+        z: 0
+      position:
+        x: [0,0,0,0,0]
+        y: [4.5,4.5,6,6,4.5]
+        z: [0,0,0,0,0]
+      width: [3.5,5,5,3.5,3.5].mult(1.2)
+      height: [3.5,5,5,3.5,3.5].mult(1.2)
+      texture: [3]
+    bigring2:
+      section_segments: 24
+      offset:
+        x: 14.5
+        y: 24.5+mainypos
+        z: 0
+      position:
+        x: [0,0,0,0,0]
+        y: [4.5,4.5,6,6,4.5]
+        z: [0,0,0,0,0]
+      width: [3.5,5,5,3.5,3.5].mult(1.2)
+      height: [3.5,5,5,3.5,3.5].mult(1.2)
+      texture: [3]
+    enginetopright:
+      section_segments: [30,40,45,50,60,125,135,145,215,225,235,280,290,300,310,315,320,330]
+      offset:
+        x: 0
+        y: 19+mainypos
+        z: 8.5
+      position:
+        x: [0,0,0,0]
+        y: [-1,-1,0,0].add(15)
+        z: [0,0,0,0]
+      width: [0,11,11,0]
+      height: [0,5.5,5.5,0]
+      texture: [63]
+      angle: 88
+    enginetopleft:
+      section_segments: [30,40,45,50,60,125,135,145,215,225,235,280,290,300,310,315,320,330]
+      offset:
+        x: 0
+        y: 19+mainypos
+        z: 8.5
+      position:
+        x: [0,0,0,0]
+        y: [-1,-1,0,0].add(-14)
+        z: [0,0,0,0]
+      width: [0,11,11,0]
+      height: [0,5.5,5.5,0]
+      texture: [63]
+      angle: 92
+    enginebottomright:
+      section_segments: [30,40,45,50,60,125,135,145,215,225,235,280,290,300,310,315,320,330].add(180)
+      offset:
+        x: 0
+        y: 19+mainypos
+        z: -8
+      position:
+        x: [0,0,0,0]
+        y: [-1,-1,0,0].add(15)
+        z: [0,0,0,0]
+      width: [0,11,11,0]
+      height: [0,5.5,5.5,0]
+      texture: [1]
+      angle: 88
+    enginebottomleft:
+      section_segments: [30,40,45,50,60,125,135,145,215,225,235,280,290,300,310,315,320,330].add(180)
+      offset:
+        x: 0
+        y: 19+mainypos
+        z: -8
+      position:
+        x: [0,0,0,0]
+        y: [-1,-1,0,0].add(-14)
+        z: [0,0,0,0]
+      width: [0,11,11,0]
+      height: [0,5.5,5.5,0]
+      texture: [1]
+      angle: 92
+    cockpit:
+      section_segments: 9
+      offset:
+        x: 0
+        y: -34+mainypos
+        z: 5
+      position:
+        x: [0,0,0,0,0,0,0,0,0]
+        y: [-7,-1,3,8,9,13,14,48,49]
+        z: [0,0,0,0,0,0,0,1.8,2]
+      width: [0,6,7.2,8.3,8.4,8.7,8.8,6.4,0]
+      height: [0,6,8,9,9,9.2,9.2,5,0]
+      texture: [2,4,4,2,4,2,1]
+      angle: 0
+    wingEndbaseTop:
+      section_segments: 18
+      offset:
+        x: 34
+        y: -27+mainypos
+        z: 0
+      position:
+        x: [0,0,0,0,0,0,0,0,0,0]
+        y: [-19,-9,23,22,25,29,30,33,32.3,32.3].mult(0.7)
+        z: [0,0,0,0,0,0,0,0,0,0]
+      width: [0,5,5,4,3.5,3.5,4,4,3,0].mult(0.7)
+      height: [0,5,5,4,3.5,3.5,4,4,3,0].mult(0.7)
+      texture: [1,10,17,1,11,17,1,17,1]
+      angle: 0
+      laser:
+        damage: [4,7]
+        rate: 7
+        type: 1
+        speed: [155,190]
+        number: 1
+    connect:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 25
+        y: -22+mainypos
+        z: 0
+      position:
+        x: [-2,0,0,0]
+        y: [-16,-4,10,10]
+        z: [0,0,0,0]
+      width: [0.1,11,11,0]
+      height: [1.5,1.5,1.5,0]
+      texture: [1]
+
+j=0
+loop
+  addWingtipEndRod(j,34,-31,0,0.7,j*30)
+  j = j+1
+  if j == 12 then break
+
+return model;
