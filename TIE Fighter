@@ -1,0 +1,669 @@
+Array::mult = (m) -> @map (v) -> v*m
+Array::add = (m) -> @map (v) -> v+m
+for key, value of []
+  delete Array::[key]
+  Object.defineProperty Array::, key,
+    value: value
+    configurable: true
+    enumerable: false
+
+model =
+  name: 'TIE Fighter'
+  level: 2
+  model: 1
+  size: 0.76
+  next: [301,302]
+  zoom: 1
+  specs:
+    shield:
+      capacity: [110,140]
+      reload: [5,9]
+    generator:
+      capacity: [140,180]
+      reload: [60,95]
+    ship:
+      mass: 50
+      speed: [185,200]
+      rotation: [140,190]
+      acceleration: [140,200]
+  bodies:
+#main
+    main:
+      section_segments: 12
+      offset:
+        x: 0
+        y: 0
+        z: 0
+      position:
+        x: [0,0,0,0,0,0,0,0,0]
+        y: [-23,-23,-15,0,15,22,25,18,18]
+        z: [0,0,0,0,0,0,0,0,0]
+      width: [0,17,25,30,25,16,14,11,0]
+      height: [0,17,25,30,25,16,14,11,0]
+      texture: [3]
+    cockpitBase:
+      section_segments: 8
+      offset:
+        x: 0
+        y: -15
+        z: 0
+      position:
+        x: [0,0,0,0,0]
+        y: [-11,-11,-8,0,0]
+        z: [0,0,0,0,0]
+      width: [0,8,16.5,16.5,0]
+      height: [0,8,16.5,16.5,0]
+      texture: [2]
+      propeller: false
+    cockpitBase2:
+      section_segments: 12
+      offset:
+        x: 0
+        y: -16.2
+        z: 0
+      position:
+        x: [0,0,0,0,0]
+        y: [-7,-7,-2,0,0]
+        z: [0,0,0,0,0]
+      width: [0,17,19,19,0]
+      height: [0,17,19,19,0]
+      texture: [2]
+      propeller: false
+    cockpitOuter:
+      section_segments: 24
+      offset:
+        x: 0
+        y: -14.9
+        z: 0
+      position:
+        x: [0,0,0,0,0]
+        y: [-11,-11,-8,0,0]
+        z: [0,0,0,0,0]
+      width: [0,8,16.5,16.5,0]
+      height: [0,8,16.5,16.5,0]
+      texture: [3.9]
+      propeller: false
+    cockpitInner:
+      section_segments: 8
+      offset:
+        x: 0
+        y: -15.1
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-11,-11,-8,0]
+        z: [0,0,0,0]
+      width: [0,7,7,0]
+      height: [0,7,7,0]
+      texture: [4]
+      propeller: false
+    mainEndWindow:
+      section_segments: 6
+      offset:
+        x: 0
+        y: 18.1
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-1,-1,0,0]
+        z: [0,0,0,0]
+      width: [0,8,8,0]
+      height: [0,4.5,4.5,0]
+      texture: [1.9]
+      propeller: false
+#top
+    topBase:
+      section_segments: 12
+      offset:
+        x: 0
+        y: 9
+        z: 0
+      position:
+        x: [0,0,0,0,0]
+        y: [-2,-2,10,18.5,21]
+        z: [0,0,0,0,0]
+      width: [0,12,20,12,0]
+      height: [0,12,19,12,0]
+      texture: [3]
+      vertical: true
+    topRing:
+      section_segments: 12
+      offset:
+        x: 0
+        y: 9.8
+        z: 0
+      position:
+        x: [0,0,0,0,0]
+        y: [-2,-2,10,18,18]
+        z: [0,0,0,0,0]
+      width: [0,11,11,11.6,0]
+      height: [0,11,11,11.6,0]
+      texture: [2]
+      vertical: true
+    topStripe:
+      section_segments: 16
+      offset:
+        x: 0
+        y: 0
+        z: 26
+      position:
+        x: [0,0,0,0,0]
+        y: [-2,-2,2,2,2]
+        z: [0,0,0,0,0]
+      width: [0,11,11,11,0]
+      height: [0,4,4,4,0]
+      texture: [8]
+      angle: 90
+    topStripeMain:
+      section_segments: 16
+      offset:
+        x: 4
+        y: 1
+        z: 25.95
+      position:
+        x: [0,0,0,0,0]
+        y: [-1,-1,1,1,1]
+        z: [0,0,0,0,0]
+      width: [0,9,9,9,0]
+      height: [0,4,4,4,0]
+      texture: [2]
+      angle: 90
+    topStripeOuter:
+      section_segments: 16
+      offset:
+        x: 6.5
+        y: 1.5
+        z: 25.5
+      position:
+        x: [0,0,0,0,0]
+        y: [-0.5,-0.5,1,1,1]
+        z: [0,0,0,0,0]
+      width: [0,6,6,6,0]
+      height: [0,4,4,4,0]
+      texture: [2]
+      angle: 90
+#body detailing, part 1
+    backEndDetailMount:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 0
+        y: 19.7
+        z: 15.8
+      position:
+        x: [0,0,0,0]
+        y: [-2,2,5,5]
+        z: [0,0,0,0]
+      width: [6,6,4,0]
+      height: [3,3,3,0]
+      texture: [3]
+      vertical: false
+    backEndDetailSquare:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 0
+        y: 19
+        z: 17.4
+      position:
+        x: [0,0,0,0]
+        y: [-2,-2,5,5]
+        z: [0,0,0,0]
+      width: [0,3,3,0]
+      height: [0,4.4,3,0]
+      texture: [3]
+      vertical: false
+    backEndDetailSquareTop:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 0
+        y: 13
+        z: 25
+      position:
+        x: [0,0,0,0]
+        y: [-2,-2,4,4]
+        z: [0,0,-1.6,-1.6]
+      width: [0,1.8,1.8,0]
+      height: [0,2,2,0]
+      texture: [3]
+      vertical: false
+    backEndDetailSquareConnect:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 0.7
+        y: 18
+        z: 21
+      position:
+        x: [0,0,0,0]
+        y: [-2,-2,4,4]
+        z: [2,2,-3,-3]
+      width: [0,0.8,0.8,0]
+      height: [0,2,2,0]
+      texture: [3]
+      vertical: false
+#body detailing and engines, part 2
+    backEndDetailEngineMount:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 14.5
+        y: 20.4
+        z: 0
+      position:
+        x: [8,8,1,1]
+        y: [-6,-4,2,2]
+        z: [0,0,0,0]
+      width: [2,2,1,0]
+      height: [5,5,3,0]
+      texture: [2]
+      vertical: false
+    engines:
+      section_segments: 8
+      offset:
+        x: 20
+        y: 18
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-4,6,6,4]
+        z: [0,0,0,0]
+      width: [2.4,2,1.5,0]
+      height: [2.4,2,1.5,0]
+      texture: [2,2,17]
+      propeller: true
+#body detailing and bottom, part 3 pretty sure
+    bottomBase:
+      section_segments: 12
+      offset:
+        x: 0
+        y: -26
+        z: 0
+      position:
+        x: [0,0,0,0,0]
+        y: [-4,-1,10,10,10]
+        z: [0,0,0,0,0]
+      width: [0,12,20,12,0]
+      height: [0,12,19,12,0]
+      texture: [3]
+      vertical: true
+    bottomCircleThing:
+      section_segments: 12
+      offset:
+        x: 0
+        y: -27.8
+        z: 0
+      position:
+        x: [0,0,0,0,0]
+        y: [-1.5,-1,10,10,10]
+        z: [0,0,0,0,0]
+      width: [0,6,12,0,0]
+      height: [0,6,12,0,0]
+      texture: [3]
+      vertical: true
+    bottomBlockThings:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 20
+        y: -2.5
+        z: -17.5
+      position:
+        x: [0,0,0,0]
+        y: [-1,-1,6,6]
+        z: [0,0,0,0]
+      width: [0,4,4,0]
+      height: [0,6,6,0]
+      texture: [3]
+      vertical: false
+    cockpitBlock: #why is this even in this section?
+      section_segments: [45,135,225,315]
+      offset:
+        x: 0
+        y: -21
+        z: 16
+      position:
+        x: [0,0,0,0]
+        y: [-1,-1,6,6]
+        z: [0,0,0,0]
+      width: [0,4,4,0]
+      height: [0,6,6,0]
+      texture: [3]
+      vertical: false
+    sideConnectBlockTops: #100% wrong section but who cares
+      section_segments: 6
+      offset:
+        x: 27
+        y: 0.5
+        z: 8
+      position:
+        x: [0,0,0,0]
+        y: [-2,-2,1,1]
+        z: [0,0,0,0]
+      width: [0,7,7,0]
+      height: [0,4,4,0]
+      texture: [3]
+      vertical: false
+#inner wing + connect
+    CC4InnerWingBlock:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 55.8
+        y: -17
+        z: -0.2
+      position:
+        x: [0,0,0,0]
+        y: [-4,-4,3,3]
+        z: [0,0,0,0]
+      width: [0,1,1,0]
+      height: [0,2,2,0]
+      texture: [3]
+      angle: 0
+    CC5InnerWingBlock:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 55.8
+        y: -11
+        z: -1.4
+      position:
+        x: [0,0,0,0]
+        y: [-2,-2,1,1]
+        z: [0,0,0,0]
+      width: [0,1,1,0]
+      height: [0,1.2,1.2,0]
+      texture: [3]
+      angle: 0
+    CC6InnerWingBlock:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 55.8
+        y: -10.4
+        z: 1
+      position:
+        x: [0,0,0,0]
+        y: [-2,-2,1,1]
+        z: [0,0,0,0]
+      width: [0,1,1,0]
+      height: [0,1.2,1.2,0]
+      texture: [3]
+      angle: 0
+    CC5MainRodConnect: #IMPORTANT
+      section_segments: 16
+      offset:
+        x: 0
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0,0,0,0]
+        y: [-60,60,60,59,59,60,60]
+        z: [0,0,0,0,0,0,0]
+      width: [5,5,4,4,3,3,0]
+      height: [5,5,4,4,3,3,0]
+      texture: [3]
+      angle: -90
+    CC5RodSides:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 50
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-5,-5,8,8]
+        z: [0,0,0,0]
+      width: [0,8,15,0]
+      height: [0,1,2,0]
+      texture: [3]
+      angle: 90
+    MainRodOuterCC1:
+      section_segments: 16
+      offset:
+        x: 49
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-1,-1,1,1]
+        z: [0,0,0,0]
+      width: [0,5.8,5.8,0]
+      height: [0,5.8,5.8,0]
+      texture: [2]
+      angle: 90
+    MainRodOuterCC2:
+      section_segments: 16
+      offset:
+        x: 37
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-1,-1,1,1]
+        z: [0,0,0,0]
+      width: [0,5.5,5.5,0]
+      height: [0,5.5,5.5,0]
+      texture: [2]
+      angle: 90
+    CC6RodSidesInner:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 30
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-5,-5,0,8]
+        z: [0,0,0,0]
+      width: [0,8,15,18]
+      height: [0,2,3,8]
+      texture: [3]
+      angle: -90
+    CC7RodSidesInner:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 30
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [0,0,0,8]
+        z: [0,0,0,0]
+      width: [0,0,15,18]
+      height: [0,0,6,12]
+      texture: [3]
+      angle: -90
+    CC6RodTop:
+      section_segments: [45,135,225,315]
+      offset:
+        x: 30
+        y: 0
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-5,-5,11,11]
+        z: [0,0,0,0]
+      width: [0,5,2,0]
+      height: [0,15,8,0]
+      texture: [3]
+      angle: 90
+    secondaryConnect:
+      section_segments: 6
+      offset:
+        x: 54
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-1,-1,1,1]
+        z: [0,0,0,0]
+      width: [0,6,6,0]
+      height: [0,6,6,0]
+      texture: [1.9]
+      angle: 90
+    secondaryConnect2:
+      section_segments: 12
+      offset:
+        x: 50
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-1,-1,3.5,3.5]
+        z: [0,0,0,0]
+      width: [0,2,2,0]
+      height: [0,5.7,6.1,0]
+      texture: [1.9]
+      angle: 90
+# cannons
+    cannonMountMain:
+      section_segments: 12
+      offset:
+        x: 7.5
+        y: -18
+        z: -18
+      position:
+        x: [0,0,0,0]
+        y: [-4,-4,6,6]
+        z: [0,0,0,0]
+      width: [0,2.4,2.4,0]
+      height: [0,2.4,2.4,0]
+      texture: [3]
+    cannonMountBottom:
+      section_segments: 12
+      offset:
+        x: 7.5
+        y: -22
+        z: -18
+      position:
+        x: [0,0,0,0]
+        y: [-4,-4,6,6]
+        z: [0,0,0,0]
+      width: [0,1.6,1.6,0]
+      height: [0,1.6,1.6,0]
+      texture: [2]
+    cannonMountBottom2:
+      section_segments: 12
+      offset:
+        x: 7.5
+        y: -22
+        z: -18
+      position:
+        x: [0,0,0,0]
+        y: [-4,-4,-3,1]
+        z: [0,0,0,0]
+      width: [0,1.7,2,0]
+      height: [0,1.7,2,0]
+      texture: [2] #cannon mounts 1 and 2 can be one segment, but laziness, so...
+    cannonMountCenter:
+      section_segments: 12
+      offset:
+        x: 7.5
+        y: -25
+        z: -18
+      position:
+        x: [0,0,0,0,0]
+        y: [-4,-7,-5,-1,-1]
+        z: [0,0,0,0,0]
+      width: [0,0.4,1.2,1.2,0]
+      height: [0,0.4,1.2,1.2,0]
+      texture: [17,3,8]
+      laser:
+        damage: [4,6.5]
+        rate: 5
+        type: 1
+        speed: [150,225]
+        number: 2
+        angle: 2
+        error: 5
+#wings
+    wingRailTop:
+      section_segments: 12
+      offset:
+        x: 53
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0,0,0]
+        y: [-47,-46,-22,22,46,47]
+        z: [0,0,62,62,0,0]
+      width: [0,3,3,3,3,0]
+      height: [0,3,3,3,3,0]
+      texture: [2]
+    wingRailBottom:
+      section_segments: 12
+      offset:
+        x: 53
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-46,-22,22,46]
+        z: [0,-62,-62,0]
+      width: [3,3,3,3]
+      height: [3,3,3,3]
+      texture: [2]
+    wingMain:
+      section_segments: [60+30,120+30,180+30,240+30,300+30,360+30]
+      offset:
+        x: 53
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0]
+        y: [-1,-1,1,1]
+        z: [0,0,0,0]
+      width: [0,45,45,0]
+      height: [0,73,73,0]
+      texture: [3.9]
+      angle: 90
+    wingHex:
+      section_segments: 6
+      offset:
+        x: 54.8
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0,0,0,0,0]
+        y: [-4,-4,2,2,1,1,2,2]
+        z: [0,0,0,0,0,0,0,0]
+      width: [0,9,9,7.5,5,5,4.5,0]
+      height: [0,9,9,7.5,5,5,4.5,0]
+      texture: [1.9]
+      angle: 90
+    wingRailConnectCenter:
+      section_segments: 12
+      offset:
+        x: 53
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0,0,0]
+        y: [-47,-46,-22,22,46,47]
+        z: [0,0,0,0,0,0]
+      width: [0,3,3,3,3,0]
+      height: [0,3,3,3,3,0]
+      texture: [2]
+    wingRailConnectA1:
+      section_segments: 12
+      offset:
+        x: 53
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0,0,0]
+        y: [-47,-46,-22,22,46,47]
+        z: [0,0,62,-62,0,0]
+      width: [0,3,3,3,3,0]
+      height: [0,3,3,3,3,0]
+      texture: [2]
+    wingRailConnectA2:
+      section_segments: 12
+      offset:
+        x: 53
+        y: -1
+        z: 0
+      position:
+        x: [0,0,0,0,0,0]
+        y: [-47,-46,-22,22,46,47]
+        z: [0,0,-62,62,0,0]
+      width: [0,3,3,3,3,0]
+      height: [0,3,3,3,3,0]
+      texture: [2]
+
+
+
+return model;
